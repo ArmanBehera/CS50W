@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="links">
+            <a href="index.html" class="left-link">Homepage</a>
+            <a href="image-search.html">Image Search</a>
+        </div>
+        
+        <div class="image">
+            <a href="https://imgbb.com/">
+                <img id="advanced-search-image" src="https://i.ibb.co/ySCLN6Z/image-2023-12-13-191336887-removebg-preview.png" alt="image-2023-12-13-191336887-removebg-preview">
+            </a>
+        </div>
+        
+        <h3>Find pages with...</h3>
+
+        <div class="form">
+            <form action="https://www.google.com/search" method="get">
+                
+                <div class="block">
+                    <div class="text">
+                        <label>All these words: </label>
+                    </div>
+                    
+                    <input type="text" name="as_q">
+                </div>
+                <div class="block">
+                    <div class="text">
+                        <label>This exact word or phrase: </label>
+                    </div>
+                    
+                    <input type="text" name="as_epq">
+                </div>
+                <div class="block">
+                    <div class="text">
+                        <label>Any of these words: </label>
+                    </div>
+
+                    <input type="text" name="as_oq">
+                </div>
+                <div class="block">
+                    <div class="text">
+                        <label>None of these words: </label>
+                    </div>
+
+                    <input type="text" name="as_eq">
+                </div>
+                <div class="block">
+                    <div class="text">
+                        <label>Numbers ranging from: </label>
+                    </div>
+                    
+                    <input type="number" name="as_nlo"> to <input type="number" value="as_nhi">
+                </div>
+
+                <input type="submit" value="Advanced Search">
+            </form>
+        </div>
+    </body>
+</html>

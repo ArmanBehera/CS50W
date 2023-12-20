@@ -29,32 +29,27 @@ def index(request):
 # Buggy. to be fixed
 def wiki(request):
     """
-        Only used for search button. Redirects to 'renderFile' url when the search button is clicked.
+        Only used for search button.
+         Redirects to 'renderFile' url when the search button is clicked.
     """
     searchResult = SearchForm(request.POST)
-    
-    print()
-    print()
-    print(searchResult)
 
     if searchResult.is_valid():
         search = searchResult.cleaned_data["search"]
-        return HttpResponseRedirect(reverse("renderFile", kwargs={"filename" : search})) # Not really sure if this is working
+        return HttpResponseRedirect(reverse("renderFile", kwargs={"filename" : search}))
     else:
         return HttpResponse("Failure")
 
 
 def renderFile(request, filename):
+    """
+    Renders file in markdown format to HTML format.
+    """
 
     file = util.get_entry(filename)
 
-    if file == None:
+    if file is None:
         return render(request, "encyclopedia/error.html", {
             "form" : SearchForm()
         })
-    else:
-        return render(request, "encyclopedia/file.html", {
-            "filename" : filename,
-            "file" : markdowner.convert(util.get_entry(filename)),
-            "form" : SearchForm() 
-        })
+    

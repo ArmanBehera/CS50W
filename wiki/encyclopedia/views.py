@@ -13,7 +13,7 @@ class SearchForm(forms.Form):
     """
         Creates a search field that is used in layout.html
     """
-    search=forms.CharField()
+    search = forms.CharField()
 
 
 def index(request):
@@ -35,11 +35,11 @@ def wiki(request):
     
     print()
     print()
-    print(searchResult.cleaned_data["search"])
+    print(searchResult)
 
     if searchResult.is_valid():
         search = searchResult.cleaned_data["search"]
-        return HttpResponseRedirect(reverse(f"renderFile filename={search}")) # Not really sure if this is working
+        return HttpResponseRedirect(reverse("renderFile", kwargs={"filename" : search})) # Not really sure if this is working
     else:
         return HttpResponse("Failure")
 

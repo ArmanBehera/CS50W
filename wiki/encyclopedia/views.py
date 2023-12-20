@@ -15,6 +15,14 @@ class SearchForm(forms.Form):
     """
     search = forms.CharField()
 
+class NewPageTextArea(forms.Form):
+    """
+        Creates a text area to create new text files.
+    """
+
+    title = forms.CharField()
+    textArea = forms.CharField(widget=forms.Textarea(attrs={'cols' : 120, 'rows': 20}), label="")
+
 
 def index(request):
     """
@@ -57,4 +65,24 @@ def renderFile(request, filename):
             "filename" : filename,
             "file" : markdowner.convert(file)
         })
-    
+
+def newPage(request):
+    """
+        Creates a new page and when submitted stores it locally.
+    """
+
+    if request.method == "GET":
+        return render(request, "encyclopedia/new.html", {
+            "textAreaForm" : NewPageTextArea()
+        })
+    else:
+
+        formResult = NewPageTextArea(request.POST)
+
+        if formResult.is_valid():
+            titleResult = formResult.cleaned_data["title"]
+            textAreaResult = formResult.cleaned_data["textArea"]
+
+            util.save_entry(titleResult, textAreaResult)
+
+        return HttpResponseRedirect(reverse("index"))

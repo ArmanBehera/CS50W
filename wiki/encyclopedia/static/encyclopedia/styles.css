@@ -53,3 +53,9 @@ textarea {
 .navigation {
     margin-bottom: 5px;
 }
+
+#id_textArea {
+    border-radius: 5px;
+    margin-left: 50px;
+    padding: 5px;
+}

@@ -52,4 +52,9 @@ def renderFile(request, filename):
         return render(request, "encyclopedia/error.html", {
             "form" : SearchForm()
         })
+    else:
+        return render(request, "encyclopedia/file.html", {
+            "filename" : filename,
+            "file" : markdowner.convert(file)
+        })
     

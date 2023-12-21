@@ -3,6 +3,7 @@ from django import forms
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from markdown2 import Markdown
+import random
 
 from . import util
 
@@ -122,3 +123,15 @@ def edit(request, filename):
             util.save_entry(filename, editResult)
 
         return HttpResponseRedirect(reverse("index"))
+
+def randomPage(request):
+
+    """
+        Redirects the user to a random page
+    """
+
+    all_entries = util.list_entries()
+
+    randomNum = random.randint(0, (len(all_entries) - 1))
+
+    return HttpResponseRedirect(reverse("renderFile", kwargs={"filename" : all_entries[randomNum]}))

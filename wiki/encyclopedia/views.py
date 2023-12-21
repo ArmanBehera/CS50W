@@ -57,9 +57,7 @@ def renderFile(request, filename):
     file = util.get_entry(filename)
 
     if file is None:
-        return render(request, "encyclopedia/error.html", {
-            "form" : SearchForm()
-        })
+        return render(request, "encyclopedia/error.html")
     else:
         return render(request, "encyclopedia/file.html", {
             "filename" : filename,
@@ -84,5 +82,43 @@ def newPage(request):
             textAreaResult = formResult.cleaned_data["textArea"]
 
             util.save_entry(titleResult, textAreaResult)
+
+        return HttpResponseRedirect(reverse("index"))
+
+
+def editIndex(request):
+
+    return render(request, "encyclopedia/editIndex.html", {
+        "entries" : util.list_entries()
+    })
+
+
+def edit(request, filename):
+    
+    if request.method == "GET":
+        file = util.get_entry(filename)
+
+        if file is None:
+            return render(request, "encyclopedia/error.html")
+        else:
+            initial_data = {
+                'title' : filename,
+                'textArea' : file
+            }
+
+
+
+            return render(request, "encyclopedia/edit.html", {
+                "filename" : filename,
+                "textAreaForm" : NewPageTextArea(initial=initial_data)
+            })
+    else:
+
+        result = NewPageTextArea(request.POST)
+
+        if result.is_valid():
+
+            editResult = result.cleaned_data["textArea"]
+            util.save_entry(filename, editResult)
 
         return HttpResponseRedirect(reverse("index"))

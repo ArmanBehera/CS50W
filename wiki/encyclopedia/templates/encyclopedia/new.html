@@ -6,6 +6,8 @@
 
 {% block body %}
 
+    <h1>New Entry</h1>
+
     <form action="{% url 'newPage' %}" method="post">
         {% csrf_token %}
         {{ textAreaForm }}
